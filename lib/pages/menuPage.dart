@@ -215,6 +215,10 @@ class _MenuPageState extends State<MenuPage> {
         .set({
       'startWork': time,
     });
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(uId)
+        .set({'isWorking': true}, SetOptions(merge: true));
   }
 
   void endWork() async {
@@ -251,7 +255,7 @@ class _MenuPageState extends State<MenuPage> {
     int workMinutes = workDurationAfterBreaks.inMinutes.remainder(60);
     int workSeconds = workDurationAfterBreaks.inSeconds.remainder(60);
     String workDurationString = '$workHours:$workMinutes:$workSeconds';
-    
+
     int minuutti = workDurationAfterBreaks.inMinutes;
     double minute = (minuutti - 480) / 60;
     FirebaseFirestore.instance
@@ -262,8 +266,11 @@ class _MenuPageState extends State<MenuPage> {
       'workDuration': durationString,
       'workDurationAfterBreaks': workDurationString,
       'overHours': minute
-
     }, SetOptions(merge: true));
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(uId)
+        .set({'isWorking': false}, SetOptions(merge: true));
 
     _timeStampInfo.delete('lunchStart');
     _timeStampInfo.delete('lunchEnd');
