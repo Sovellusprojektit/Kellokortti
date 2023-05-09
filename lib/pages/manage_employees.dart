@@ -1,8 +1,7 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mobprojekti/models/admin_history.dart';
 import '../utility/router.dart' as route;
 
 class EmployeeManager extends StatefulWidget {
@@ -13,7 +12,6 @@ class EmployeeManager extends StatefulWidget {
 }
 
 class _EmployeeManagerState extends State<EmployeeManager> {
-  
   @override
   void initState() {
     super.initState();
@@ -101,13 +99,20 @@ class _EmployeeManagerState extends State<EmployeeManager> {
                         ),
                         actions: <Widget>[
                           TextButton(
-                            child: const Text('Close'),
+                            child: const Text('History'),
                             onPressed: () {
-                              Navigator.of(context).pop();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AdminHistory(
+                                    uID: document.id,
+                                  ),
+                                ),
+                              );
                             },
                           ),
                           TextButton(
-                            child: const Text('Ok'),
+                            child: const Text('Close'),
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
