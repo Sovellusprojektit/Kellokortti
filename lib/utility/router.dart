@@ -4,7 +4,7 @@ import '../pages/loginpage.dart';
 import '../pages/adminhomepage.dart';
 import '../pages/settings.dart';
 import '../pages/accountinfopage.dart';
-import '../pages/menupage.dart';
+import '../pages/menuPage.dart';
 import '../pages/manage_employees.dart';
 import '../pages/registerpage.dart';
 import '../pages/add_employees.dart';

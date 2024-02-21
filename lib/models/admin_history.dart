@@ -1,16 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 class AdminHistory extends StatefulWidget {
   final String uID;
 
-  AdminHistory({required this.uID, Key? key}) : super(key: key);
+  const AdminHistory({required this.uID, Key? key}) : super(key: key);
 
   @override
   State<AdminHistory> createState() => _AdminHistoryState();
 }
-
 
 class _AdminHistoryState extends State<AdminHistory> {
   dynamic info = [];
@@ -85,10 +83,10 @@ class _AdminHistoryState extends State<AdminHistory> {
                           Text(
                               'Shift ended:${Text('$dt1').toString().substring(16, 25)}'),
                           const SizedBox(height: 10),
-                          Text('Worktime (hh/mm/ss): ' + data['workDuration']),
+                          Text('Worktime (hh/mm/ss): ${data['workDuration']}'),
                           const SizedBox(height: 10),
-                          Text('After breaks (hh/mm/ss): ' +
-                              data['workDurationAfterBreaks']),
+                          Text(
+                              'After breaks (hh/mm/ss): ${data['workDurationAfterBreaks']}'),
                           const SizedBox(height: 10),
                         ],
                       ),
