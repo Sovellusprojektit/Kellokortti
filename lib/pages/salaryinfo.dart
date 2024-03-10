@@ -76,8 +76,8 @@ class _SalaryInfoState extends State<SalaryInfo> {
                 const SizedBox(
                   height: 25,
                 ),
-                Row(
-                  children:  const [
+                const Row(
+                  children:  [
                     Text(
                       "Title: Plumber",
                     style: TextStyle(
@@ -89,8 +89,8 @@ class _SalaryInfoState extends State<SalaryInfo> {
                 const SizedBox(
                   height: 40,
                 ),
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     Text(
                       "Weekly hours: 38/h",
                       style: TextStyle(
@@ -139,8 +139,8 @@ class _SalaryInfoState extends State<SalaryInfo> {
                 const SizedBox(
                   height: 40,
                 ),
-                Row(
-                  children:  const [
+                const Row(
+                  children:  [
                     Text(
                       "Vacation: 30 Days",
                       style: TextStyle(

@@ -53,8 +53,7 @@ class _HomePageState extends State<HomePage> {
             ListTile(
                 leading: const Icon(Icons.message_rounded),
                 title: const Text('Messages'),
-                onTap: () =>
-                    null //Navigator.pushNamed(context, route.messagePage),
+                onTap: () {} //Navigator.pushNamed(context, route.messagePage),
                 ),
             ListTile(
               leading: const Icon(Icons.payment_rounded),
