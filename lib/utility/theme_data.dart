@@ -86,11 +86,12 @@ ThemeData darkTheme() {
     ),
     appBarTheme: const AppBarTheme(
         foregroundColor: Colors.orange,
-        backgroundColor: Color(0xFF121212),
+        backgroundColor: Color.fromARGB(255, 0, 0, 0),
         titleTextStyle: TextStyle(
             color: Colors.orange, fontSize: 27, fontWeight: FontWeight.bold)),
+    scaffoldBackgroundColor: Colors.orange,
     drawerTheme: const DrawerThemeData(
-      backgroundColor: Color(0xFF121212),
+      backgroundColor: Color.fromARGB(255, 0, 0, 0),
     ),
     textTheme: const TextTheme(
       displayLarge: TextStyle(
