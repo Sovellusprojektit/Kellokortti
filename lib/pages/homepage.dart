@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       drawer: Drawer(
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        backgroundColor: Theme.of(context).drawerTheme.backgroundColor,
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
@@ -43,35 +43,49 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               leading: const Icon(Icons.home_rounded),
               title: const Text('Home'),
+              iconColor: Theme.of(context).iconTheme.color,
+              textColor: Theme.of(context).textTheme.bodyLarge!.color,
               onTap: () => Navigator.pop(context),
             ),
             ListTile(
               leading: const Icon(Icons.calendar_month_rounded),
+              iconColor: Theme.of(context).iconTheme.color,
               title: const Text('Calendar'),
+              textColor: Theme.of(context).textTheme.bodyLarge!.color,
               onTap: () => Navigator.pushNamed(context, route.calendarPage),
             ),
             ListTile(
                 leading: const Icon(Icons.message_rounded),
+                iconColor: Theme.of(context).iconTheme.color,
                 title: const Text('Messages'),
+                textColor: Theme.of(context).textTheme.bodyLarge!.color,
                 onTap: () {} //Navigator.pushNamed(context, route.messagePage),
                 ),
             ListTile(
               leading: const Icon(Icons.payment_rounded),
               title: const Text('Salary information'),
+              textColor: Theme.of(context).textTheme.bodyLarge!.color,
+              iconColor: Theme.of(context).iconTheme.color,
               onTap: () => Navigator.pushNamed(context, route.salaryInfo),
             ),
             ListTile(
               leading: const Icon(Icons.person_rounded),
               title: const Text('Profile'),
+              iconColor: Theme.of(context).iconTheme.color,
+              textColor: Theme.of(context).textTheme.bodyLarge!.color,
               onTap: () => Navigator.pushNamed(context, route.profilePage),
             ),
             ListTile(
                 leading: const Icon(Icons.menu),
                 title: const Text('Menu'),
+                iconColor: Theme.of(context).iconTheme.color,
+                textColor: Theme.of(context).textTheme.bodyLarge!.color,
                 onTap: () => Navigator.pushNamed(context, route.menuPage)),
             ListTile(
               leading: const Icon(Icons.privacy_tip_outlined),
               title: const Text('AdminHomePage'),
+              iconColor: Theme.of(context).iconTheme.color,
+              textColor: Theme.of(context).textTheme.bodyLarge!.color,
               onTap: () {
                 if (_userInfo.get('isAdmin')) {
                   Navigator.pushNamed(context, route.adminHomePage);
@@ -99,6 +113,8 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               leading: const Icon(Icons.settings_rounded),
               title: const Text('Settings'),
+              iconColor: Theme.of(context).iconTheme.color,
+              textColor: Theme.of(context).textTheme.bodyLarge!.color,
               onTap: () => Navigator.pushNamed(context, route.settingsPage),
             ),
           ],

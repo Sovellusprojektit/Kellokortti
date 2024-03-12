@@ -123,7 +123,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         centerTitle: true,
       ),
       drawer: Drawer(
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        backgroundColor: Theme.of(context).drawerTheme.backgroundColor,
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
@@ -137,40 +137,54 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
             ListTile(
               leading: const Icon(Icons.home_rounded),
               title: const Text('Home'),
+              iconColor: Theme.of(context).iconTheme.color,
+              textColor: Theme.of(context).textTheme.bodyLarge!.color,
               onTap: () =>
                   Navigator.pushReplacementNamed(context, route.homePage),
             ),
             ListTile(
               leading: const Icon(Icons.calendar_month_rounded),
               title: const Text('Calendar'),
+              iconColor: Theme.of(context).iconTheme.color,
+              textColor: Theme.of(context).textTheme.bodyLarge!.color,
               onTap: () =>
                   Navigator.pushReplacementNamed(context, route.calendarPage),
             ),
             ListTile(
                 leading: const Icon(Icons.message_rounded),
                 title: const Text('Messages'),
+                iconColor: Theme.of(context).iconTheme.color,
+                textColor: Theme.of(context).textTheme.bodyLarge!.color,
                 onTap: () {} //Navigator.pushNamed(context, route.messagePage),
                 ),
             ListTile(
               leading: const Icon(Icons.payment_rounded),
               title: const Text('Salary information'),
+              iconColor: Theme.of(context).iconTheme.color,
+              textColor: Theme.of(context).textTheme.bodyLarge!.color,
               onTap: () =>
                   Navigator.pushReplacementNamed(context, route.salaryInfo),
             ),
             ListTile(
                 leading: const Icon(Icons.menu),
                 title: const Text('Menu'),
+                iconColor: Theme.of(context).iconTheme.color,
+                textColor: Theme.of(context).textTheme.bodyLarge!.color,
                 onTap: () =>
                     Navigator.pushReplacementNamed(context, route.menuPage)),
             ListTile(
               leading: const Icon(Icons.settings_rounded),
               title: const Text('AdminHomePage'),
+              iconColor: Theme.of(context).iconTheme.color,
+              textColor: Theme.of(context).textTheme.bodyLarge!.color,
               onTap: () =>
                   Navigator.pushReplacementNamed(context, route.adminHomePage),
             ),
             ListTile(
               leading: const Icon(Icons.settings_rounded),
               title: const Text('Settings'),
+              iconColor: Theme.of(context).iconTheme.color,
+              textColor: Theme.of(context).textTheme.bodyLarge!.color,
               onTap: () => Navigator.pushNamed(context, route.settingsPage),
             ),
           ],
@@ -182,15 +196,21 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             padding: const EdgeInsets.all(15),
+            color: Theme.of(context).primaryColor,
             child: ListView(
               children: [
                 const SizedBox(
                   height: 80,
                 ),
-                const Row(
+                Row(
                   children: [
                     Icon(Icons.account_circle_rounded),
-                    Text('Name:'),
+                    Text(
+                      'Name:',
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                      ),
+                    ),
                   ],
                 ),
                 Row(
@@ -199,8 +219,17 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                       child: TextFormField(
                         controller: _nameController,
                         decoration: InputDecoration(
-                          hintText: _userInfo.get('Name'),
-                        ),
+                            hintText: _userInfo.get('Name'),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .color!),
+                            ),
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.green),
+                            )),
                       ),
                     ),
                   ],
@@ -208,10 +237,15 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 const SizedBox(
                   height: 50,
                 ),
-                const Row(
+                Row(
                   children: [
-                    Icon(Icons.add_ic_call_rounded),
-                    Text('Mobile:'),
+                    const Icon(Icons.add_ic_call_rounded),
+                    Text(
+                      'Mobile:',
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                      ),
+                    ),
                   ],
                 ),
                 Row(
@@ -222,6 +256,16 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                         onFieldSubmitted: (newValue) => _saveMobile(newValue),
                         decoration: InputDecoration(
                           hintText: _userInfo.get('Phone number'),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .color!),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.green),
+                          ),
                         ),
                       ),
                     ),
@@ -230,11 +274,14 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 const SizedBox(
                   height: 50,
                 ),
-                const Row(
+                Row(
                   children: [
-                    Icon(Icons.attach_email_rounded),
+                    const Icon(Icons.attach_email_rounded),
                     Text(
                       'Email:',
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                      ),
                     ),
                   ],
                 ),
@@ -243,18 +290,27 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 ),
                 Text(
                   '$email',
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyLarge!.color,
+                  ),
                 ),
-                const Divider(
+                Divider(
                   height: 40,
                   thickness: 1,
+                  color: Theme.of(context).textTheme.bodyLarge!.color,
                 ),
                 const SizedBox(
                   height: 50,
                 ),
-                const Row(
+                Row(
                   children: [
-                    Icon(Icons.add_home_rounded),
-                    Text('Address:'),
+                    const Icon(Icons.add_home_rounded),
+                    Text(
+                      'Address:',
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(
@@ -268,6 +324,16 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                         onFieldSubmitted: (newValue) => _saveAddress(newValue),
                         decoration: InputDecoration(
                           hintText: _userInfo.get('Address'),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .color!),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.green),
+                          ),
                         ),
                       ),
                     ),
@@ -276,10 +342,15 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 const SizedBox(
                   height: 50,
                 ),
-                const Row(
+                Row(
                   children: [
-                    Icon(Icons.add_moderator_rounded),
-                    Text('Password:'),
+                    const Icon(Icons.add_moderator_rounded),
+                    Text(
+                      'Password:',
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                      ),
+                    ),
                   ],
                 ),
                 Row(
@@ -290,6 +361,16 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                         onFieldSubmitted: (newValue) => _savePassword(newValue),
                         decoration: InputDecoration(
                           hintText: _userInfo.get('Password'),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .color!),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.green),
+                          ),
                           suffixIcon: IconButton(
                             icon: Icon(
                               _isObscure

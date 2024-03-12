@@ -1,4 +1,12 @@
 {
     "java.configuration.updateBuildConfiguration": "interactive",
-    "cmake.sourceDirectory": "${workspaceFolder}/linux"
+    "cmake.sourceDirectory": "${workspaceFolder}/linux",
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-21",
+            "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.2.13-hotspot", // Vaihda tähän oikea polku OpenJDK 21.0.2 -versioon
+            "default": true
+          }
+        ]
+      
 }

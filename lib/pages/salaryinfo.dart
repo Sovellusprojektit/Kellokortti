@@ -19,30 +19,28 @@ class _SalaryInfoState extends State<SalaryInfo> {
   dynamic values = [];
 
   @override
-   void initState() {
-     super.initState();
-     uID = _userInfo.get("uid");
+  void initState() {
+    super.initState();
+    uID = _userInfo.get("uid");
     _overHours();
-   }
+  }
 
   void _overHours() async {
-    overHours.collection('/Users/$uID/workTime')
-    .get().then((value) {
-        for (var docSnapshot in value.docs) {
-      _map = docSnapshot.data();
-      int length =  _map!['overHours'].toString().length;
-      if (length <= 14){
-        setState(() {
-         values = _map!['overHours'].toString();
-      });
-      } else{
-        setState(() {
-          values = _map!['overHours'].toString().substring(0,17);
-        });
+    overHours.collection('/Users/$uID/workTime').get().then((value) {
+      for (var docSnapshot in value.docs) {
+        _map = docSnapshot.data();
+        int length = _map!['overHours'].toString().length;
+        if (length <= 14) {
+          setState(() {
+            values = _map!['overHours'].toString();
+          });
+        } else {
+          setState(() {
+            values = _map!['overHours'].toString().substring(0, 17);
+          });
+        }
       }
-       }
-       }
-    );
+    });
   }
 
   void _toggleEditing(String condition) {
@@ -52,7 +50,7 @@ class _SalaryInfoState extends State<SalaryInfo> {
       });
     }
   }
-  
+
   void _saveName() {
     _toggleEditing('Tuntipalkka');
     _userInfo.put('Tuntipalkka', _nameController.text);
@@ -67,35 +65,23 @@ class _SalaryInfoState extends State<SalaryInfo> {
         ),
         body: Stack(children: <Widget>[
           Container(
+            color: Theme.of(context).primaryColor,
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            
             padding: const EdgeInsets.only(left: 10),
             child: ListView(
               children: [
                 const SizedBox(
                   height: 25,
                 ),
-                const Row(
-                  children:  [
-                    Text(
-                      "Title: Plumber",
-                    style: TextStyle(
-                      fontSize: 20
-                    ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                const Row(
+                Row(
                   children: [
                     Text(
-                      "Weekly hours: 38/h",
+                      "Title: Plumber",
                       style: TextStyle(
-                      fontSize: 20
-                    ),
+                        fontSize: 20,
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                      ),
                     ),
                   ],
                 ),
@@ -103,27 +89,47 @@ class _SalaryInfoState extends State<SalaryInfo> {
                   height: 40,
                 ),
                 Row(
-                  children:  [
-                    const Text("Salary /h : ",
-                    style: TextStyle(
-                      fontSize: 20
-                    ),),
+                  children: [
+                    Text(
+                      "Weekly hours: 38/h",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "Salary /h : ",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                      ),
+                    ),
                     const SizedBox(
                       width: 20,
                     ),
-                    Expanded(child: TextFormField(
-                      controller: _nameController,
-                      enabled: _editingName,
-                      decoration: InputDecoration(
-                        hintText: _userInfo.get('Tuntipalkka'),
-                        hintStyle: const TextStyle(
-                        ),
-                      ),
-                      onSaved: (value) {
-                        _nameController.text = value!;
-                      }),
-                      ),
-                      IconButton(
+                    Expanded(
+                      child: TextFormField(
+                          controller: _nameController,
+                          enabled: _editingName,
+                          decoration: InputDecoration(
+                            hintText: _userInfo.get('Tuntipalkka'),
+                            hintStyle: TextStyle(
+                              color:
+                                  Theme.of(context).textTheme.bodyLarge!.color,
+                            ),
+                          ),
+                          onSaved: (value) {
+                            _nameController.text = value!;
+                          }),
+                    ),
+                    IconButton(
                       onPressed: () => _toggleEditing('Tuntipalkka'),
                       icon: _editingName
                           ? const Icon(Icons.cancel)
@@ -139,25 +145,28 @@ class _SalaryInfoState extends State<SalaryInfo> {
                 const SizedBox(
                   height: 40,
                 ),
-                const Row(
-                  children:  [
+                Row(
+                  children: [
                     Text(
                       "Vacation: 30 Days",
                       style: TextStyle(
-                      fontSize: 20
-                    ), 
+                        fontSize: 20,
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                      ),
                     ),
                   ],
                 ),
                 const SizedBox(
                   height: 40,
                 ),
-                 Row(
-                  children:  [
-                    Text('Overtime: $values',
-                     style: const TextStyle(
-                      fontSize: 20
-                    ),
+                Row(
+                  children: [
+                    Text(
+                      'Overtime: $values',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                      ),
                     ),
                     const SizedBox(
                       width: 30,
@@ -168,10 +177,10 @@ class _SalaryInfoState extends State<SalaryInfo> {
                   height: 300,
                 ),
                 ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, route.workHistory);
-                },
-                child: const Text("Workhistory")
+                  onPressed: () {
+                    Navigator.pushNamed(context, route.workHistory);
+                  },
+                  child: const Text("Workhistory"),
                 ),
               ],
             ),

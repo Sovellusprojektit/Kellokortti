@@ -44,6 +44,7 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       body: Container(
         padding: const EdgeInsets.all(15),
+        color: Theme.of(context).primaryColor,
         child: ListView(
           children: [
             const SizedBox(
@@ -55,12 +56,18 @@ class _SettingsPageState extends State<SettingsPage> {
                   Icons.nightlight_round,
                 ),
                 const SizedBox(width: 10),
-                const Text(
+                Text(
                   "Dark mode",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).textTheme.bodyLarge!.color),
                 ),
                 Switch(
                     value: _light,
+                    activeColor: Theme.of(context).textTheme.bodyLarge!.color,
+                    inactiveThumbColor: Colors.white,
+                    inactiveTrackColor: Theme.of(context).textTheme.bodyLarge!.color,
                     onChanged: (bool value) {
                       currentTheme.toggleTheme();
                       _switchPosition.put('lightPosition', value);
@@ -68,11 +75,13 @@ class _SettingsPageState extends State<SettingsPage> {
                         _light = value;
                       });
                     }),
+
               ],
             ),
-            const Divider(
+            Divider(
               height: 20,
               thickness: 1,
+              color: Theme.of(context).textTheme.bodyLarge!.color,
             ),
             const SizedBox(
               height: 40,
@@ -83,12 +92,18 @@ class _SettingsPageState extends State<SettingsPage> {
                   Icons.fingerprint_rounded,
                 ),
                 const SizedBox(width: 10),
-                const Text(
+                Text(
                   "Enable biometric login",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).textTheme.bodyLarge!.color),
                 ),
                 Switch(
                     value: _biometrics,
+                    activeColor: Theme.of(context).textTheme.bodyLarge!.color,
+                    inactiveThumbColor: Colors.white,
+                    inactiveTrackColor: Theme.of(context).textTheme.bodyLarge!.color,
                     onChanged: (bool value) async {
                       _switchPosition.put('biometricsPosition', value);
                       setState(() {
@@ -97,9 +112,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     }),
               ],
             ),
-            const Divider(
+            Divider(
               height: 20,
               thickness: 1,
+              color: Theme.of(context).textTheme.bodyLarge!.color,
             ),
             const SizedBox(
               height: 40,
@@ -110,9 +126,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   Icons.delete,
                 ),
                 const SizedBox(width: 10),
-                const Text(
+                Text(
                   "Clear local data",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).textTheme.bodyLarge!.color),
                 ),
                 const Spacer(),
                 IconButton(
@@ -125,10 +144,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ],
             ),
-
-            const Divider(
+            Divider(
               height: 20,
               thickness: 1,
+              color: Theme.of(context).textTheme.bodyLarge!.color,
             ),
             const SizedBox(
               height: 40,
@@ -139,9 +158,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   Icons.logout,
                 ),
                 const SizedBox(width: 10),
-                const Text(
+                Text(
                   "Log out",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).textTheme.bodyLarge!.color),
                 ),
                 const Spacer(),
                 IconButton(
@@ -172,12 +194,10 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void clearLocalData() {
-
     _switchPosition.clear();
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Data has been deleted successfully'),
-        backgroundColor: Colors.green,
-      ));
+      content: Text('Data has been deleted successfully'),
+      backgroundColor: Colors.green,
+    ));
   }
-
 }
