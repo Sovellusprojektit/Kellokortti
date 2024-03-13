@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../utility/router.dart' as route;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -121,60 +120,6 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
       appBar: AppBar(
         title: const Text('Account Info'),
         centerTitle: true,
-      ),
-      drawer: Drawer(
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(color: Colors.grey.shade800),
-              child: const CircleAvatar(
-                radius: 50,
-                backgroundImage: AssetImage('assets/pfp_placeholder.jpg'),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home_rounded),
-              title: const Text('Home'),
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, route.homePage),
-            ),
-            ListTile(
-              leading: const Icon(Icons.calendar_month_rounded),
-              title: const Text('Calendar'),
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, route.calendarPage),
-            ),
-            ListTile(
-                leading: const Icon(Icons.message_rounded),
-                title: const Text('Messages'),
-                onTap: () {} //Navigator.pushNamed(context, route.messagePage),
-                ),
-            ListTile(
-              leading: const Icon(Icons.payment_rounded),
-              title: const Text('Salary information'),
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, route.salaryInfo),
-            ),
-            ListTile(
-                leading: const Icon(Icons.menu),
-                title: const Text('Menu'),
-                onTap: () =>
-                    Navigator.pushReplacementNamed(context, route.menuPage)),
-            ListTile(
-              leading: const Icon(Icons.settings_rounded),
-              title: const Text('AdminHomePage'),
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, route.adminHomePage),
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings_rounded),
-              title: const Text('Settings'),
-              onTap: () => Navigator.pushNamed(context, route.settingsPage),
-            ),
-          ],
-        ),
       ),
       body: Stack(
         children: <Widget>[

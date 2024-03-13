@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mobprojekti/utility/theme_provider.dart';
+import 'package:mobprojekti/widgets/themed_switch.dart';
 import '../utility/router.dart' as route;
 
 class SettingsPage extends StatefulWidget {
@@ -43,6 +44,7 @@ class _SettingsPageState extends State<SettingsPage> {
         centerTitle: true,
       ),
       body: Container(
+        color: Theme.of(context).primaryColor,
         padding: const EdgeInsets.all(15),
         child: ListView(
           children: [
@@ -55,19 +57,23 @@ class _SettingsPageState extends State<SettingsPage> {
                   Icons.nightlight_round,
                 ),
                 const SizedBox(width: 10),
-                const Text(
-                  "Dark mode",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                Text(
+                  _light ? "Dark mode" : "Light mode",
+                  style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold),
                 ),
-                Switch(
-                    value: _light,
-                    onChanged: (bool value) {
-                      currentTheme.toggleTheme();
-                      _switchPosition.put('lightPosition', value);
-                      setState(() {
-                        _light = value;
-                      });
-                    }),
+                ThemedSwitch(
+                  value: _light,
+                  onChanged: (bool value) {
+                    currentTheme.toggleTheme();
+                    _switchPosition.put('lightPosition', value);
+                    setState(() {
+                      _light = value;
+                    });
+                  },
+                ),
               ],
             ),
             const Divider(
@@ -83,18 +89,24 @@ class _SettingsPageState extends State<SettingsPage> {
                   Icons.fingerprint_rounded,
                 ),
                 const SizedBox(width: 10),
-                const Text(
-                  "Enable biometric login",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                Text(
+                  _biometrics
+                      ? "Disable biometric login"
+                      : "Enable biometric login",
+                  style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold),
                 ),
-                Switch(
-                    value: _biometrics,
-                    onChanged: (bool value) async {
-                      _switchPosition.put('biometricsPosition', value);
-                      setState(() {
-                        _biometrics = value;
-                      });
-                    }),
+                ThemedSwitch(
+                  value: _biometrics,
+                  onChanged: (bool value) {
+                    _switchPosition.put('biometricsPosition', value);
+                    setState(() {
+                      _biometrics = value;
+                    });
+                  },
+                ),
               ],
             ),
             const Divider(
@@ -110,9 +122,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   Icons.delete,
                 ),
                 const SizedBox(width: 10),
-                const Text(
+                Text(
                   "Clear local data",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
                 IconButton(
@@ -125,7 +140,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ],
             ),
-
             const Divider(
               height: 20,
               thickness: 1,
@@ -139,9 +153,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   Icons.logout,
                 ),
                 const SizedBox(width: 10),
-                const Text(
+                Text(
                   "Log out",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
                 IconButton(
@@ -172,12 +189,10 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void clearLocalData() {
-
     _switchPosition.clear();
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Data has been deleted successfully'),
-        backgroundColor: Colors.green,
-      ));
+      content: Text('Data has been deleted successfully'),
+      backgroundColor: Colors.green,
+    ));
   }
-
 }
