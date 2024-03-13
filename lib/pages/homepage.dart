@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       drawer: Drawer(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).drawerTheme.backgroundColor,
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
@@ -41,6 +41,7 @@ class _HomePageState extends State<HomePage> {
                 backgroundImage: AssetImage('assets/pfp_placeholder.jpg'),
               ),
             ),
+
             ThemedListTile(
               icon: Icons.home_rounded,
               text: 'Home',
@@ -74,6 +75,7 @@ class _HomePageState extends State<HomePage> {
             ThemedListTile(
               icon: Icons.privacy_tip_outlined,
               text: 'AdminHomePage',
+
               onTap: () {
                 if (_userInfo.get('isAdmin')) {
                   Navigator.pushNamed(context, route.adminHomePage);
@@ -101,6 +103,7 @@ class _HomePageState extends State<HomePage> {
             ThemedListTile(
               icon: Icons.settings_rounded,
               text: 'Settings',
+
               onTap: () => Navigator.pushNamed(context, route.settingsPage),
             ),
           ],

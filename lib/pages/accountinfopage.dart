@@ -127,15 +127,21 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             padding: const EdgeInsets.all(15),
+            color: Theme.of(context).primaryColor,
             child: ListView(
               children: [
                 const SizedBox(
                   height: 80,
                 ),
-                const Row(
+                Row(
                   children: [
                     Icon(Icons.account_circle_rounded),
-                    Text('Name:'),
+                    Text(
+                      'Name:',
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                      ),
+                    ),
                   ],
                 ),
                 Row(
@@ -144,8 +150,17 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                       child: TextFormField(
                         controller: _nameController,
                         decoration: InputDecoration(
-                          hintText: _userInfo.get('Name'),
-                        ),
+                            hintText: _userInfo.get('Name'),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .color!),
+                            ),
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.green),
+                            )),
                       ),
                     ),
                   ],
@@ -153,10 +168,15 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 const SizedBox(
                   height: 50,
                 ),
-                const Row(
+                Row(
                   children: [
-                    Icon(Icons.add_ic_call_rounded),
-                    Text('Mobile:'),
+                    const Icon(Icons.add_ic_call_rounded),
+                    Text(
+                      'Mobile:',
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                      ),
+                    ),
                   ],
                 ),
                 Row(
@@ -167,6 +187,16 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                         onFieldSubmitted: (newValue) => _saveMobile(newValue),
                         decoration: InputDecoration(
                           hintText: _userInfo.get('Phone number'),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .color!),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.green),
+                          ),
                         ),
                       ),
                     ),
@@ -175,11 +205,14 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 const SizedBox(
                   height: 50,
                 ),
-                const Row(
+                Row(
                   children: [
-                    Icon(Icons.attach_email_rounded),
+                    const Icon(Icons.attach_email_rounded),
                     Text(
                       'Email:',
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                      ),
                     ),
                   ],
                 ),
@@ -188,18 +221,27 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 ),
                 Text(
                   '$email',
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyLarge!.color,
+                  ),
                 ),
-                const Divider(
+                Divider(
                   height: 40,
                   thickness: 1,
+                  color: Theme.of(context).textTheme.bodyLarge!.color,
                 ),
                 const SizedBox(
                   height: 50,
                 ),
-                const Row(
+                Row(
                   children: [
-                    Icon(Icons.add_home_rounded),
-                    Text('Address:'),
+                    const Icon(Icons.add_home_rounded),
+                    Text(
+                      'Address:',
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(
@@ -213,6 +255,16 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                         onFieldSubmitted: (newValue) => _saveAddress(newValue),
                         decoration: InputDecoration(
                           hintText: _userInfo.get('Address'),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .color!),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.green),
+                          ),
                         ),
                       ),
                     ),
@@ -221,10 +273,15 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 const SizedBox(
                   height: 50,
                 ),
-                const Row(
+                Row(
                   children: [
-                    Icon(Icons.add_moderator_rounded),
-                    Text('Password:'),
+                    const Icon(Icons.add_moderator_rounded),
+                    Text(
+                      'Password:',
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                      ),
+                    ),
                   ],
                 ),
                 Row(
@@ -235,6 +292,16 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                         onFieldSubmitted: (newValue) => _savePassword(newValue),
                         decoration: InputDecoration(
                           hintText: _userInfo.get('Password'),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .color!),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.green),
+                          ),
                           suffixIcon: IconButton(
                             icon: Icon(
                               _isObscure
