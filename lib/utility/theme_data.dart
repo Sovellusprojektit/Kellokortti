@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 ThemeData lightTheme() {
   return ThemeData(
+    brightness: Brightness.light,
     primaryColor: Colors.white,
     buttonTheme: const ButtonThemeData(
       buttonColor: Colors.blue,
@@ -24,7 +25,7 @@ ThemeData lightTheme() {
         fontSize: 16,
       ),
       displayMedium: TextStyle(
-        color: Colors.black,
+        color: Colors.white,
         fontSize: 14,
       ),
     ),
@@ -50,6 +51,10 @@ ThemeData lightTheme() {
           fontWeight: FontWeight.bold,
         ),
       ),
+    ),
+    switchTheme: SwitchThemeData(
+      thumbColor: MaterialStateProperty.all(Colors.white),
+      trackColor: MaterialStateProperty.all(Colors.black87),
     ),
     timePickerTheme: TimePickerThemeData(
       backgroundColor: Colors.white,
@@ -79,6 +84,7 @@ ThemeData lightTheme() {
 
 ThemeData darkTheme() {
   return ThemeData(
+    brightness: Brightness.dark,
     primaryColor: const Color(0xFF121212),
     buttonTheme: const ButtonThemeData(
       buttonColor: Colors.orange,
@@ -128,6 +134,10 @@ ThemeData darkTheme() {
           fontWeight: FontWeight.bold,
         ),
       ),
+    ),
+    switchTheme: SwitchThemeData(
+      thumbColor: MaterialStateProperty.all(Colors.white),
+      trackColor: MaterialStateProperty.all(Colors.orange),
     ),
     timePickerTheme: TimePickerThemeData(
       backgroundColor: const Color(0xFF121212),

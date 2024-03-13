@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../utility/router.dart' as route;
 import 'package:hive_flutter/hive_flutter.dart';
+import '../widgets/drawer_tile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -40,52 +41,41 @@ class _HomePageState extends State<HomePage> {
                 backgroundImage: AssetImage('assets/pfp_placeholder.jpg'),
               ),
             ),
-            ListTile(
-              leading: const Icon(Icons.home_rounded),
-              title: const Text('Home'),
-              iconColor: Theme.of(context).iconTheme.color,
-              textColor: Theme.of(context).textTheme.bodyLarge!.color,
+
+            ThemedListTile(
+              icon: Icons.home_rounded,
+              text: 'Home',
               onTap: () => Navigator.pop(context),
             ),
-            ListTile(
-              leading: const Icon(Icons.calendar_month_rounded),
-              iconColor: Theme.of(context).iconTheme.color,
-              title: const Text('Calendar'),
-              textColor: Theme.of(context).textTheme.bodyLarge!.color,
+            ThemedListTile(
+              icon: Icons.calendar_month_rounded,
+              text: 'Calendar',
               onTap: () => Navigator.pushNamed(context, route.calendarPage),
             ),
-            ListTile(
-                leading: const Icon(Icons.message_rounded),
-                iconColor: Theme.of(context).iconTheme.color,
-                title: const Text('Messages'),
-                textColor: Theme.of(context).textTheme.bodyLarge!.color,
-                onTap: () {} //Navigator.pushNamed(context, route.messagePage),
-                ),
-            ListTile(
-              leading: const Icon(Icons.payment_rounded),
-              title: const Text('Salary information'),
-              textColor: Theme.of(context).textTheme.bodyLarge!.color,
-              iconColor: Theme.of(context).iconTheme.color,
+            ThemedListTile(
+              icon: Icons.message_rounded,
+              text: 'Messages',
+              onTap: () {}, //Navigator.pushNamed(context, route.messagePage),
+            ),
+            ThemedListTile(
+              icon: Icons.payment_rounded,
+              text: 'Salary information',
               onTap: () => Navigator.pushNamed(context, route.salaryInfo),
             ),
-            ListTile(
-              leading: const Icon(Icons.person_rounded),
-              title: const Text('Profile'),
-              iconColor: Theme.of(context).iconTheme.color,
-              textColor: Theme.of(context).textTheme.bodyLarge!.color,
+            ThemedListTile(
+              icon: Icons.person_rounded,
+              text: 'Profile',
               onTap: () => Navigator.pushNamed(context, route.profilePage),
             ),
-            ListTile(
-                leading: const Icon(Icons.menu),
-                title: const Text('Menu'),
-                iconColor: Theme.of(context).iconTheme.color,
-                textColor: Theme.of(context).textTheme.bodyLarge!.color,
-                onTap: () => Navigator.pushNamed(context, route.menuPage)),
-            ListTile(
-              leading: const Icon(Icons.privacy_tip_outlined),
-              title: const Text('AdminHomePage'),
-              iconColor: Theme.of(context).iconTheme.color,
-              textColor: Theme.of(context).textTheme.bodyLarge!.color,
+            ThemedListTile(
+              icon: Icons.menu,
+              text: 'Menu',
+              onTap: () => Navigator.pushNamed(context, route.menuPage),
+            ),
+            ThemedListTile(
+              icon: Icons.privacy_tip_outlined,
+              text: 'AdminHomePage',
+
               onTap: () {
                 if (_userInfo.get('isAdmin')) {
                   Navigator.pushNamed(context, route.adminHomePage);
@@ -110,11 +100,10 @@ class _HomePageState extends State<HomePage> {
                 }
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.settings_rounded),
-              title: const Text('Settings'),
-              iconColor: Theme.of(context).iconTheme.color,
-              textColor: Theme.of(context).textTheme.bodyLarge!.color,
+            ThemedListTile(
+              icon: Icons.settings_rounded,
+              text: 'Settings',
+
               onTap: () => Navigator.pushNamed(context, route.settingsPage),
             ),
           ],

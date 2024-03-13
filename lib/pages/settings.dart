@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mobprojekti/utility/theme_provider.dart';
+import 'package:mobprojekti/widgets/themed_switch.dart';
 import '../utility/router.dart' as route;
 
 class SettingsPage extends StatefulWidget {
@@ -43,8 +44,8 @@ class _SettingsPageState extends State<SettingsPage> {
         centerTitle: true,
       ),
       body: Container(
-        padding: const EdgeInsets.all(15),
         color: Theme.of(context).primaryColor,
+        padding: const EdgeInsets.all(15),
         child: ListView(
           children: [
             const SizedBox(
@@ -57,31 +58,27 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 const SizedBox(width: 10),
                 Text(
-                  "Dark mode",
+                  _light ? "Dark mode" : "Light mode",
                   style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
                       fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).textTheme.bodyLarge!.color),
+                      fontWeight: FontWeight.bold),
                 ),
-                Switch(
-                    value: _light,
-                    activeColor: Theme.of(context).textTheme.bodyLarge!.color,
-                    inactiveThumbColor: Colors.white,
-                    inactiveTrackColor: Theme.of(context).textTheme.bodyLarge!.color,
-                    onChanged: (bool value) {
-                      currentTheme.toggleTheme();
-                      _switchPosition.put('lightPosition', value);
-                      setState(() {
-                        _light = value;
-                      });
-                    }),
-
+                ThemedSwitch(
+                  value: _light,
+                  onChanged: (bool value) {
+                    currentTheme.toggleTheme();
+                    _switchPosition.put('lightPosition', value);
+                    setState(() {
+                      _light = value;
+                    });
+                  },
+                ),
               ],
             ),
-            Divider(
+            const Divider(
               height: 20,
               thickness: 1,
-              color: Theme.of(context).textTheme.bodyLarge!.color,
             ),
             const SizedBox(
               height: 40,
@@ -93,29 +90,28 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 const SizedBox(width: 10),
                 Text(
-                  "Enable biometric login",
+                  _biometrics
+                      ? "Disable biometric login"
+                      : "Enable biometric login",
                   style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
                       fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).textTheme.bodyLarge!.color),
+                      fontWeight: FontWeight.bold),
                 ),
-                Switch(
-                    value: _biometrics,
-                    activeColor: Theme.of(context).textTheme.bodyLarge!.color,
-                    inactiveThumbColor: Colors.white,
-                    inactiveTrackColor: Theme.of(context).textTheme.bodyLarge!.color,
-                    onChanged: (bool value) async {
-                      _switchPosition.put('biometricsPosition', value);
-                      setState(() {
-                        _biometrics = value;
-                      });
-                    }),
+                ThemedSwitch(
+                  value: _biometrics,
+                  onChanged: (bool value) {
+                    _switchPosition.put('biometricsPosition', value);
+                    setState(() {
+                      _biometrics = value;
+                    });
+                  },
+                ),
               ],
             ),
-            Divider(
+            const Divider(
               height: 20,
               thickness: 1,
-              color: Theme.of(context).textTheme.bodyLarge!.color,
             ),
             const SizedBox(
               height: 40,
@@ -129,9 +125,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 Text(
                   "Clear local data",
                   style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
                       fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).textTheme.bodyLarge!.color),
+                      fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
                 IconButton(
@@ -144,10 +140,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ],
             ),
-            Divider(
+            const Divider(
               height: 20,
               thickness: 1,
-              color: Theme.of(context).textTheme.bodyLarge!.color,
             ),
             const SizedBox(
               height: 40,
@@ -161,9 +156,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 Text(
                   "Log out",
                   style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
                       fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).textTheme.bodyLarge!.color),
+                      fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
                 IconButton(
