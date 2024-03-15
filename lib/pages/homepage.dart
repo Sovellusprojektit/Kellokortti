@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../utility/router.dart' as route;
@@ -14,12 +15,29 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String? email;
   final _userInfo = Hive.box('userData');
+  bool _isAdmin = false;
 
   @override
   void initState() {
     super.initState();
     email = FirebaseAuth.instance.currentUser?.email;
+    isAdmin();
     print(FirebaseAuth.instance.currentUser?.email);
+    
+  }
+
+   void isAdmin() {
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(_userInfo.get('uid'))
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+         setState(() {
+           _isAdmin = documentSnapshot.get('isAdmin');
+         });
+      }
+    });
   }
 
   @override
@@ -41,7 +59,6 @@ class _HomePageState extends State<HomePage> {
                 backgroundImage: AssetImage('assets/pfp_placeholder.jpg'),
               ),
             ),
-
             ThemedListTile(
               icon: Icons.home_rounded,
               text: 'Home',
@@ -72,38 +89,17 @@ class _HomePageState extends State<HomePage> {
               text: 'Menu',
               onTap: () => Navigator.pushNamed(context, route.menuPage),
             ),
-            ThemedListTile(
-              icon: Icons.privacy_tip_outlined,
-              text: 'AdminHomePage',
-
-              onTap: () {
-                if (_userInfo.get('isAdmin')) {
+            if (_isAdmin)
+              ThemedListTile(
+                icon: Icons.privacy_tip_outlined,
+                text: 'AdminHomePage',
+                onTap: () {
                   Navigator.pushNamed(context, route.adminHomePage);
-                } else {
-                  showDialog<void>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        icon: const Icon(Icons.error_outline),
-                        title: const Text('Auth Error'),
-                        content:
-                            const Text('Only an admin can access this page'),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                }
-              },
-            ),
+                },
+              ),
             ThemedListTile(
               icon: Icons.settings_rounded,
               text: 'Settings',
-
               onTap: () => Navigator.pushNamed(context, route.settingsPage),
             ),
           ],

@@ -91,7 +91,7 @@ class _AddEventsPageState extends State<AddEventsPage> {
                       },
                     ),
                     const SizedBox(height: 20),
-                    const Text('Start Date'),
+                    Text('Start Date', style:Theme.of(context).textTheme.displayLarge),
                     Row(
                       children: [
                         Expanded(
@@ -110,7 +110,7 @@ class _AddEventsPageState extends State<AddEventsPage> {
                       ],
                     ),
                     const SizedBox(height: 20),
-                    const Text('End Date'),
+                    Text('End Date', style:Theme.of(context).textTheme.displayLarge),
                     Row(
                       children: [
                         Expanded(
