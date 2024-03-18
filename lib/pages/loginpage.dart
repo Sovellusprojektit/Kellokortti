@@ -4,7 +4,9 @@ import '../utility/router.dart' as route;
 import 'package:hive_flutter/hive_flutter.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final bool isWeb;
+
+  const LoginPage({super.key, required this.isWeb});
 
   @override
   LoginPageState createState() => LoginPageState();
@@ -19,6 +21,9 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final fieldWidth = widget.isWeb ? 400.0 : screenWidth * 0.8;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -33,6 +38,7 @@ class LoginPageState extends State<LoginPage> {
               ),
               child: Center(
                 child: Container(
+                  width: fieldWidth,
                   margin: const EdgeInsets.all(12),
                   child: Form(
                     key: _formkey,

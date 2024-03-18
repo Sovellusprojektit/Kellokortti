@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import '../utility/router.dart' as route;
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  final bool isWeb;
+  
+  const RegisterPage({super.key, required this.isWeb});
 
   @override
   RegisterPageState createState() => RegisterPageState();

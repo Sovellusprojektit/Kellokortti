@@ -3,7 +3,9 @@ import '../models/calendar_model.dart';
 import '../utility/router.dart' as route;
 
 class CalendarAdmin extends StatefulWidget {
-  const CalendarAdmin({Key? key}) : super(key: key);
+  final bool isWeb;
+  
+  const CalendarAdmin({super.key, required this.isWeb});
 
   @override
   State<CalendarAdmin> createState() => _CalendarAdminState();

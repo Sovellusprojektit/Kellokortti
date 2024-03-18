@@ -3,7 +3,9 @@ import '../models/calendar_model.dart';
 
 
 class CalendarPage extends StatefulWidget {
-  const CalendarPage({Key? key}) : super(key: key);
+  final bool isWeb;
+  
+  const CalendarPage({super.key, required this.isWeb});
 
   @override
   State<CalendarPage> createState() => _CalendarPageState();

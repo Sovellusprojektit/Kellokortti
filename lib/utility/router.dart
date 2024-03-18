@@ -14,8 +14,6 @@ import '../pages/calendar_page.dart';
 import '../pages/salaryinfo.dart';
 import '../pages/workHistory.dart';
 
-
-
 const String homePage = '/';
 const String loginPage = '/login';
 const String settingsPage = '/settings';
@@ -31,37 +29,47 @@ const String calendarPage = '/calendarPage';
 const String salaryInfo = '/salaryInfo';
 const String workHistory = '/workHistory';
 
-Route<dynamic> controller(RouteSettings destination) {
+Route<dynamic> controller(RouteSettings destination, {required bool isWeb}) {
   switch (destination.name) {
     case homePage:
-      return MaterialPageRoute(builder: (context) => const HomePage());
+      return MaterialPageRoute(
+          builder: (context) => HomePage(
+                isWeb: isWeb,
+              ));
     case loginPage:
-      return MaterialPageRoute(builder: (context) => const LoginPage());
+      return MaterialPageRoute(builder: (context) => LoginPage(isWeb: isWeb));
     case adminHomePage:
-      return MaterialPageRoute(builder: (context) => const AdminHomePage());
+      return MaterialPageRoute(
+          builder: (context) => AdminHomePage(isWeb: isWeb));
     case menuPage:
-      return MaterialPageRoute(builder: (context) => const MenuPage());
+      return MaterialPageRoute(builder: (context) => MenuPage(isWeb: isWeb));
     case settingsPage:
-      return MaterialPageRoute(builder: (context) => const SettingsPage());
+      return MaterialPageRoute(
+          builder: (context) => SettingsPage(isWeb: isWeb));
     case profilePage:
-      return MaterialPageRoute(builder: (context) => const AccountInfoPage());
+      return MaterialPageRoute(
+          builder: (context) => AccountInfoPage(isWeb: isWeb));
     case manageEmployees:
-      return MaterialPageRoute(builder: (context) => const EmployeeManager());
+      return MaterialPageRoute(
+          builder: (context) => EmployeeManager(isWeb: isWeb));
     case registerpage:
-      return MaterialPageRoute(builder: (context) => const RegisterPage());
+      return MaterialPageRoute(
+          builder: (context) => RegisterPage(isWeb: isWeb));
     case addEmployees:
-      return MaterialPageRoute(builder: (context) => const AddEmployee());
+      return MaterialPageRoute(builder: (context) => AddEmployee(isWeb: isWeb));
     case calendarAdmin:
-      return MaterialPageRoute(builder: (context) => const CalendarAdmin());
+      return MaterialPageRoute(
+          builder: (context) => CalendarAdmin(isWeb: isWeb));
     case addEvent:
-      return MaterialPageRoute(builder: (context) => const AddEventsPage());
+      return MaterialPageRoute(
+          builder: (context) => AddEventsPage(isWeb: isWeb));
     case calendarPage:
-      return MaterialPageRoute(builder: (context) => const CalendarPage());
+      return MaterialPageRoute(
+          builder: (context) => CalendarPage(isWeb: isWeb));
     case salaryInfo:
-      return MaterialPageRoute(builder: (context) => const SalaryInfo());
-      case workHistory:
-      return MaterialPageRoute(builder: (context) => const Workhistory());
-
+      return MaterialPageRoute(builder: (context) => SalaryInfo(isWeb: isWeb));
+    case workHistory:
+      return MaterialPageRoute(builder: (context) => Workhistory(isWeb: isWeb));
 
     default:
       throw ('This route does not exist');

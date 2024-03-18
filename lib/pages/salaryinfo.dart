@@ -4,7 +4,11 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../utility/router.dart' as route;
 
 class SalaryInfo extends StatefulWidget {
-  const SalaryInfo({Key? key}) : super(key: key);
+  final bool isWeb;
+  
+  const SalaryInfo({super.key, required this.isWeb});
+ 
+ 
   @override
   State<SalaryInfo> createState() => _SalaryInfoState();
 }

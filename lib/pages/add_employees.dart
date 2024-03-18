@@ -3,7 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AddEmployee extends StatefulWidget {
-  const AddEmployee({Key? key}) : super(key: key);
+  final bool isWeb;
+  
+  const AddEmployee({super.key, required this.isWeb});
 
   @override
   State<AddEmployee> createState() => _AddEmployeeState();
