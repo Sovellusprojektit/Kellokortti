@@ -27,8 +27,9 @@ class _EmployeeManagerState extends State<EmployeeManager> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
+        decoration:  BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          image: const DecorationImage(
             image: AssetImage('assets/employee_manager_bcgrnd.jpg'),
             fit: BoxFit.cover,
           ),
@@ -67,6 +68,7 @@ class _EmployeeManagerState extends State<EmployeeManager> {
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
+                        backgroundColor: Theme.of(context).primaryColor,
                         icon: const Icon(Icons.person),
                         title: Text(data['fname'] + ' ' + data['lname'],
                             style: Theme.of(context).textTheme.displayLarge),
@@ -125,6 +127,7 @@ class _EmployeeManagerState extends State<EmployeeManager> {
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
+                        backgroundColor: Theme.of(context).primaryColor,
                         icon: const Icon(Icons.person),
                         title: Text(data['fname'] + ' ' + data['lname'],
                             style: Theme.of(context).textTheme.displayLarge),

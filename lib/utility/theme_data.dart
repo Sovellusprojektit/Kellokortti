@@ -25,7 +25,7 @@ ThemeData lightTheme() {
         fontSize: 16,
       ),
       displayMedium: TextStyle(
-        color: Colors.white,
+        color: Colors.black,
         fontSize: 14,
       ),
     ),
@@ -51,6 +51,10 @@ ThemeData lightTheme() {
           fontWeight: FontWeight.bold,
         ),
       ),
+    ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: Colors.blue,
+      foregroundColor: Colors.white,
     ),
     switchTheme: SwitchThemeData(
       thumbColor: MaterialStateProperty.all(Colors.white),
@@ -125,6 +129,10 @@ ThemeData darkTheme() {
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
       ),
+    ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: Colors.orange,
+      foregroundColor: Colors.white,
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(

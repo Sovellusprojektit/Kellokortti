@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
     return Switch(
       trackColor: MaterialStateProperty.all<Color>(Theme.of(context).switchTheme.trackColor!.resolve({MaterialState.selected}) ?? Colors.blue),
       thumbColor: MaterialStateProperty.all<Color>(Theme.of(context).switchTheme.thumbColor!.resolve({MaterialState.selected}) ?? Colors.white),
+      trackOutlineColor: MaterialStateProperty.all<Color>(Theme.of(context).switchTheme.trackColor!.resolve({MaterialState.selected}) ?? Colors.blue),
       value: value,
       onChanged: onChanged,
     );
