@@ -6,7 +6,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../widgets/drawer_tile.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final bool isWeb;
+
+  const HomePage({super.key, required this.isWeb});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -15,7 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String? email;
   final _userInfo = Hive.box('userData');
-  bool _isAdmin = false;
+  bool? _isAdmin;
 
   @override
   void initState() {
@@ -23,21 +25,26 @@ class _HomePageState extends State<HomePage> {
     email = FirebaseAuth.instance.currentUser?.email;
     isAdmin();
     print(FirebaseAuth.instance.currentUser?.email);
-    
   }
 
-   void isAdmin() {
-    FirebaseFirestore.instance
-        .collection('Users')
-        .doc(_userInfo.get('uid'))
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-         setState(() {
-           _isAdmin = documentSnapshot.get('isAdmin');
-         });
-      }
-    });
+  void isAdmin() {
+    if (FirebaseAuth.instance.currentUser != null) {
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(_userInfo.get('uid'))
+          .get()
+          .then((DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists) {
+          setState(() {
+            _isAdmin = documentSnapshot.get('isAdmin');
+          });
+        }
+      });
+    } else {
+      setState(() {
+        _isAdmin = false;
+      });
+    }
   }
 
   @override
@@ -89,7 +96,7 @@ class _HomePageState extends State<HomePage> {
               text: 'Menu',
               onTap: () => Navigator.pushNamed(context, route.menuPage),
             ),
-            if (_isAdmin)
+            if (_isAdmin ?? false)
               ThemedListTile(
                 icon: Icons.privacy_tip_outlined,
                 text: 'AdminHomePage',

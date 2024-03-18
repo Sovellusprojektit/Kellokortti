@@ -4,8 +4,9 @@ import 'package:provider/provider.dart';
 
 class AddEventsPage extends StatefulWidget {
   final Event? event;
+  final bool isWeb;
 
-  const AddEventsPage({Key? key, this.event}) : super(key: key);
+  const AddEventsPage({super.key, this.event, required this.isWeb});
 
   @override
   State<AddEventsPage> createState() => _AddEventsPageState();

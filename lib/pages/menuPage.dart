@@ -4,7 +4,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../utility/router.dart' as route;
 
 class MenuPage extends StatefulWidget {
-  const MenuPage({Key? key}) : super(key: key);
+  final bool isWeb;
+
+  const MenuPage({Key? key, required this.isWeb}) : super(key: key);
 
   @override
   State<MenuPage> createState() => _MenuPageState();

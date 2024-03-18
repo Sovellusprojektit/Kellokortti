@@ -5,7 +5,9 @@ import 'package:mobprojekti/models/admin_history.dart';
 import '../utility/router.dart' as route;
 
 class EmployeeManager extends StatefulWidget {
-  const EmployeeManager({Key? key}) : super(key: key);
+  final bool isWeb;
+  
+  const EmployeeManager({super.key, required this.isWeb});
 
   @override
   State<EmployeeManager> createState() => _EmployeeManagerState();

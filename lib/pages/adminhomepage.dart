@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import '../utility/router.dart' as route;
 
 class AdminHomePage extends StatelessWidget {
-  const AdminHomePage({super.key});
+  final bool isWeb;
+  const AdminHomePage({super.key, required this.isWeb});
 
   @override
   Widget build(BuildContext context) {

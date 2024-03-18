@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class AccountInfoPage extends StatefulWidget {
-  const AccountInfoPage({Key? key}) : super(key: key);
+  final bool isWeb;
+  
+  const AccountInfoPage({super.key, required this.isWeb});
 
   @override
   State<AccountInfoPage> createState() => _AccountInfoPageState();

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class Workhistory extends StatefulWidget {
-  const Workhistory({super.key});
+  final bool isWeb;
+  
+  const Workhistory({super.key, required this.isWeb});
 
   @override
   State<Workhistory> createState() => _WorkhistoryState();
