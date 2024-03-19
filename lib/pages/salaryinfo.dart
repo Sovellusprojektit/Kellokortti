@@ -5,10 +5,9 @@ import '../utility/router.dart' as route;
 
 class SalaryInfo extends StatefulWidget {
   final bool isWeb;
-  
+
   const SalaryInfo({super.key, required this.isWeb});
- 
- 
+
   @override
   State<SalaryInfo> createState() => _SalaryInfoState();
 }
@@ -178,13 +177,16 @@ class _SalaryInfoState extends State<SalaryInfo> {
                   ],
                 ),
                 const SizedBox(
-                  height: 300,
+                  height: 100,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, route.workHistory);
-                  },
-                  child: const Text("Workhistory"),
+                Align(
+                  alignment: const Alignment(0, 0.8),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, route.workHistory);
+                    },
+                    child: const Text("Workhistory"),
+                  ),
                 ),
               ],
             ),
