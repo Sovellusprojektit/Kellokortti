@@ -173,7 +173,8 @@ class _MenuPageState extends State<MenuPage> {
                                   dropdownValue = newValue;
                                 });
                               },
-                              onOkPress: (clientId, invoiceId) {
+
+                              onOkPress: (clientId, invoiceId) async {
                                 if (dropdownValue.isNotEmpty) {
                                   _timeStampInfo.put(
                                       'clientName', dropdownValue);
@@ -181,12 +182,13 @@ class _MenuPageState extends State<MenuPage> {
                                       .collection('Clients')
                                       .where('name', isEqualTo: dropdownValue)
                                       .get()
-                                      .then((querySnapshot) {
+                                      .then((querySnapshot) async {
                                     for (var doc in querySnapshot.docs) {
                                       var clientDoc = FirebaseFirestore.instance
                                           .collection('Clients')
                                           .doc(doc.id);
-                                      _timeStampInfo.put('clientDocId', doc.id);
+                                      _timeStampInfo.put('clientRoot', doc.id);
+
                                       if (invoiceId != null &&
                                           invoiceId.isNotEmpty) {
                                         clientDoc
@@ -203,16 +205,26 @@ class _MenuPageState extends State<MenuPage> {
                                         });
                                       }
 
-                                      clientDoc.collection('general').add({
+                                      await clientDoc
+                                          .collection('general')
+                                          .add({
                                         'startWork': time,
                                         'invoiceId': invoiceId,
                                         'name': '$fname $lname',
-                                      }).then((docRef) {});
+                                      }).then((docRef) {
+                                        _timeStampInfo.put(
+                                            'clientDocId', docRef.id);
+                                        print(
+                                            "Document added with ID: ${docRef.id}");
+
+                                        startWork();
+                                      }).catchError((error) {
+                                        print("Failed to add document: $error");
+                                      });
                                     }
                                   });
                                 }
                                 getTimeStamp();
-                                startWork();
                               },
                             );
                           },
@@ -233,6 +245,8 @@ class _MenuPageState extends State<MenuPage> {
     );
   }
 
+  DocumentReference? clientWorkDocumentRef;
+
   void startWork() async {
     setState(() {
       _atWork = true;
@@ -246,21 +260,20 @@ class _MenuPageState extends State<MenuPage> {
         .set({
       'startWork': time,
     });
-    FirebaseFirestore.instance
-        .collection('Users')
-        .doc(uId)
-        .set({'isWorking': true}, SetOptions(merge: true));
 
-    DocumentReference docRef = await FirebaseFirestore.instance
+    String? clientDocId = _timeStampInfo.get('clientDocId');
+    String? clientRoot = _timeStampInfo.get('clientRoot');
+    print("Toinen $clientRoot ja $clientDocId");
+    clientWorkDocumentRef = FirebaseFirestore.instance
         .collection('Clients')
-        .doc(_timeStampInfo.get('clientDocId'))
+        .doc(clientRoot)
         .collection('general')
-        .add({
+        .doc(clientDocId);
+
+    await clientWorkDocumentRef!.set({
       'startWork': time,
       'name': '$fname $lname',
     });
-
-    _timeStampInfo.put('clientDocId', docRef.id);
   }
 
   void endWork() async {
@@ -317,27 +330,14 @@ class _MenuPageState extends State<MenuPage> {
         .collection('Users')
         .doc(uId)
         .set({'isWorking': false}, SetOptions(merge: true));
-
-    String clientDocId = _timeStampInfo.get('clientDocId');
-    String clientName = _timeStampInfo.get('clientName');
-    FirebaseFirestore.instance
-        .collection('Clients')
-        .where('name', isEqualTo: clientName)
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-          for (var doc in querySnapshot.docs) {
-            FirebaseFirestore.instance
-                .collection('Clients')
-                .doc(doc.id)
-                .collection('general')
-                .doc(clientDocId)
-                .set({
-              'endWork': time,
-              'workDuration': durationString,
-              'workDurationAfterBreaks': workDurationString,
-            }, SetOptions(merge: true));
-          }
-        } as FutureOr Function(QuerySnapshot<Map<String, dynamic>> value));
+    print("endWork: $clientWorkDocumentRef");
+    await clientWorkDocumentRef!.update(
+      {
+        'endWork': time,
+        'workDuration': durationString,
+        'workDurationAfterBreaks': workDurationString,
+      },
+    );
 
     _timeStampInfo.delete('startWork');
     _timeStampInfo.delete('lunchStart');
@@ -346,6 +346,7 @@ class _MenuPageState extends State<MenuPage> {
     _timeStampInfo.delete('personalEnd');
     _timeStampInfo.delete('clientName');
     _timeStampInfo.delete('clientDocId');
+    _timeStampInfo.delete('clientRoot');
   }
 
   void startLunch() async {
