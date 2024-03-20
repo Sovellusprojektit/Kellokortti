@@ -64,11 +64,12 @@ class _SalaryInfoState extends State<SalaryInfo> {
     final screenWidth = MediaQuery.of(context).size.width;
     final fieldWidth = widget.isWeb ? 400.0 : screenWidth * 0.8;
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Salary information"),
-          centerTitle: true,
-        ),
-        body: Stack(children: <Widget>[
+      appBar: AppBar(
+        title: const Text("Salary information"),
+        centerTitle: true,
+      ),
+      body: Stack(
+        children: <Widget>[
           Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
@@ -80,125 +81,131 @@ class _SalaryInfoState extends State<SalaryInfo> {
                 width: fieldWidth,
                 height: MediaQuery.of(context).size.height,
                 padding: const EdgeInsets.only(left: 10),
-                  child: ListView(
-                    children: [
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Title: Plumber",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Theme.of(context).textTheme.bodyLarge!.color,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Weekly hours: 38/h",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Theme.of(context).textTheme.bodyLarge!.color,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Salary /h : ",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Theme.of(context).textTheme.bodyLarge!.color,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: TextFormField(
-                                controller: _nameController,
-                                enabled: _editingName,
-                                decoration: InputDecoration(
-                                  hintText: _userInfo.get('Tuntipalkka'),
-                                  hintStyle: TextStyle(
-                                    color:
-                                        Theme.of(context).textTheme.bodyLarge!.color,
-                                  ),
-                                ),
-                                onSaved: (value) {
-                                  _nameController.text = value!;
-                                }),
-                          ),
-                          IconButton(
-                            onPressed: () => _toggleEditing('Tuntipalkka'),
-                            icon: _editingName
-                                ? const Icon(Icons.cancel)
-                                : const Icon(Icons.edit),
-                          ),
-                          if (_editingName)
-                            IconButton(
-                              onPressed: _saveName,
-                              icon: const Icon(Icons.save),
-                            ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Vacation: 30 Days",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Theme.of(context).textTheme.bodyLarge!.color,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            'Overtime: $values',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Theme.of(context).textTheme.bodyLarge!.color,
-                            ),
-                          ),
+                child: ListView(
+                  children: [
                     const SizedBox(
-                      width: 30,
+                      height: 25,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Title: Plumber",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Weekly hours: 38/h",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Salary /h : ",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                              controller: _nameController,
+                              enabled: _editingName,
+                              decoration: InputDecoration(
+                                hintText: _userInfo.get('Tuntipalkka'),
+                                hintStyle: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .color,
+                                ),
+                              ),
+                              onSaved: (value) {
+                                _nameController.text = value!;
+                              }),
+                        ),
+                        IconButton(
+                          onPressed: () => _toggleEditing('Tuntipalkka'),
+                          icon: _editingName
+                              ? const Icon(Icons.cancel)
+                              : const Icon(Icons.edit),
+                        ),
+                        if (_editingName)
+                          IconButton(
+                            onPressed: _saveName,
+                            icon: const Icon(Icons.save),
+                          ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Vacation: 30 Days",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Overtime: $values',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 30,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 100,
+                    ),
+                    Align(
+                      alignment: const Alignment(0, 0.8),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, route.workHistory);
+                        },
+                        child: const Text("Workhistory"),
+                      ),
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 100,
-                ),
-                Align(
-                  alignment: const Alignment(0, 0.8),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, route.workHistory);
-                    },
-                    child: const Text("Workhistory"),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
-        ]));
+        ],
+      ),
+    );
   }
 }
