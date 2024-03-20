@@ -5,7 +5,7 @@ import '../utility/router.dart' as route;
 
 class RegisterPage extends StatefulWidget {
   final bool isWeb;
-  
+
   const RegisterPage({super.key, required this.isWeb});
 
   @override
@@ -371,11 +371,11 @@ class RegisterPageState extends State<RegisterPage> {
                     'email': emailController.text,
                     'phone': numberController.text,
                     'username': usernameController.text,
-                    'isAdmin': true,
+                    'isAdmin': false,
                     'isWorking': false,
                   })
                 });
-        navigateToLoginPage();        
+        navigateToLoginPage();
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           print('The password provided is too weak.');
@@ -389,6 +389,7 @@ class RegisterPageState extends State<RegisterPage> {
   }
 
   void navigateToLoginPage() {
-    Navigator.pushReplacementNamed(context, route.loginPage);
+    Navigator.pushNamedAndRemoveUntil(
+        context, route.loginPage, (route) => false);
   }
 }
