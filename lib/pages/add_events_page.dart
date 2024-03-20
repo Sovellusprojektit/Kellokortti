@@ -40,6 +40,8 @@ class _AddEventsPageState extends State<AddEventsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final fieldWidth = widget.isWeb ? 400.0 : screenWidth * 0.8;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Events'),
@@ -58,103 +60,109 @@ class _AddEventsPageState extends State<AddEventsPage> {
                     image: AssetImage('assets/abstract_background.png'),
                     fit: BoxFit.cover),
               ),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    const SizedBox(height: 40),
-                    TextFormField(
-                      style: Theme.of(context).textTheme.displayLarge,
-                      controller: _titleController,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Event Title',
-                        hintStyle: const TextStyle(color: Colors.grey),
-                        contentPadding: const EdgeInsets.only(
-                            left: 14.0, bottom: 8.0, top: 8.0),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.circular(10.0),
+              child: Center(
+                child: Container(
+                  width: fieldWidth,
+                  
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        const SizedBox(height: 40),
+                        TextFormField(
+                          style: Theme.of(context).textTheme.displayLarge,
+                          controller: _titleController,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            hintText: 'Event Title',
+                            hintStyle: const TextStyle(color: Colors.grey),
+                            contentPadding: const EdgeInsets.only(
+                                left: 14.0, bottom: 8.0, top: 8.0),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                          //onFieldSubmitted: (_) => saveEvent(),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a title';
+                            }
+                            return null;
+                          },
                         ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.circular(10.0),
+                        const SizedBox(height: 20),
+                        Text('Start Date', style:Theme.of(context).textTheme.displayLarge),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: buildDropdownField(
+                                text: EventUtility.toDate(_startDate),
+                                onTap: () => pickFromDateTime(pickDate: true),
+                              ),
+                            ),
+                            Expanded(
+                              child: buildDropdownField(
+                                text: EventUtility.toTime(_startDate),
+                                onTap: () => pickFromDateTime(pickDate: false),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      //onFieldSubmitted: (_) => saveEvent(),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter a title';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    Text('Start Date', style:Theme.of(context).textTheme.displayLarge),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: buildDropdownField(
-                            text: EventUtility.toDate(_startDate),
-                            onTap: () => pickFromDateTime(pickDate: true),
+                        const SizedBox(height: 20),
+                        Text('End Date', style:Theme.of(context).textTheme.displayLarge),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: buildDropdownField(
+                                text: EventUtility.toDate(_endDate),
+                                onTap: () => pickToDateTime(pickDate: true),
+                              ),
+                            ),
+                            Expanded(
+                              child: buildDropdownField(
+                                text: EventUtility.toTime(_endDate),
+                                onTap: () => pickToDateTime(pickDate: false),
+                              ),
+                            ),
+                          ],
+                        ),
+                       const SizedBox(height: 20),
+                       TextFormField(
+                        style: const TextStyle(color: Colors.black),
+                        controller: _descriptionController,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                          hintText: 'Event Description',
+                          hintStyle: const TextStyle(color: Colors.grey),
+                          contentPadding: const EdgeInsets.only(
+                              left: 14.0, bottom: 8.0, top: 8.0),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
                         ),
-                        Expanded(
-                          child: buildDropdownField(
-                            text: EventUtility.toTime(_startDate),
-                            onTap: () => pickFromDateTime(pickDate: false),
-                          ),
-                        ),
+                        minLines: 3,
+                        maxLines: 5,
+                        //onFieldSubmitted: (_) => saveEvent(),
+                  
+                       ),
                       ],
                     ),
-                    const SizedBox(height: 20),
-                    Text('End Date', style:Theme.of(context).textTheme.displayLarge),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: buildDropdownField(
-                            text: EventUtility.toDate(_endDate),
-                            onTap: () => pickToDateTime(pickDate: true),
-                          ),
-                        ),
-                        Expanded(
-                          child: buildDropdownField(
-                            text: EventUtility.toTime(_endDate),
-                            onTap: () => pickToDateTime(pickDate: false),
-                          ),
-                        ),
-                      ],
-                    ),
-                   const SizedBox(height: 20),
-                   TextFormField(
-                    style: const TextStyle(color: Colors.black),
-                    controller: _descriptionController,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.grey[200],
-                      hintText: 'Event Description',
-                      hintStyle: const TextStyle(color: Colors.grey),
-                      contentPadding: const EdgeInsets.only(
-                          left: 14.0, bottom: 8.0, top: 8.0),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    minLines: 3,
-                    maxLines: 5,
-                    //onFieldSubmitted: (_) => saveEvent(),
-
-                   ),
-                  ],
+                  ),
                 ),
               ),
             ),

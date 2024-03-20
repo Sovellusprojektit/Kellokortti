@@ -84,7 +84,9 @@ class _MenuPageState extends State<MenuPage> {
             ),
           ),
           Center(
+            
             child: Column(
+              
               mainAxisSize: MainAxisSize.min,
               children: [
                 _atWork
