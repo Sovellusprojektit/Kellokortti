@@ -15,6 +15,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+   String? user = FirebaseAuth.instance.currentUser?.uid;
+  String? firstName;
   String? email;
   final _userInfo = Hive.box('userData');
   bool? _isAdmin;
@@ -24,6 +26,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     email = FirebaseAuth.instance.currentUser?.email;
     isAdmin();
+    getFname();
     print(FirebaseAuth.instance.currentUser?.email);
   }
 
@@ -46,12 +49,30 @@ class _HomePageState extends State<HomePage> {
       });
     }
   }
+  void getFname() async {
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(user)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        setState(() {
+          firstName = documentSnapshot['fname'] as String?;
+        });
+      } else {
+        print('Käyttäjää ei löydy');
+      }
+    }).catchError((error) {
+      print('Virhe: $error');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page'),
+        title: const Text('Home'),
         centerTitle: true,
       ),
       drawer: Drawer(
@@ -124,10 +145,12 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          Text(
-            'Welcome back, $email!',
-            style: Theme.of(context).textTheme.displayLarge,
-            textAlign: TextAlign.center,
+          Center(
+            child: Text(
+              'Welcome back, $firstName!',
+              style: Theme.of(context).textTheme.displayLarge,
+              textAlign: TextAlign.center,
+            ),
           ),
           Align(
             alignment: const Alignment(0, 0.5),
