@@ -98,9 +98,9 @@ class _HomePageState extends State<HomePage> {
               onTap: () => Navigator.pushNamed(context, route.calendarPage),
             ),
             ThemedListTile(
-              icon: Icons.message_rounded,
-              text: 'Messages',
-              onTap: () {}, //Navigator.pushNamed(context, route.messagePage),
+              icon: Icons.info_rounded,
+              text: 'Guide',
+              onTap: () => Navigator.pushNamed(context, route.guide),
             ),
             ThemedListTile(
               icon: Icons.payment_rounded,

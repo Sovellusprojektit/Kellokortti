@@ -179,24 +179,24 @@ class _SalaryInfoState extends State<SalaryInfo> {
                               color: Theme.of(context).textTheme.bodyLarge!.color,
                             ),
                           ),
-                          const SizedBox(
-                            width: 30,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 300,
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, route.workHistory);
-                        },
-                        child: const Text("Workhistory"),
-                      ),
-                    ],
+                    const SizedBox(
+                      width: 30,
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 100,
+                ),
+                Align(
+                  alignment: const Alignment(0, 0.8),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, route.workHistory);
+                    },
+                    child: const Text("Workhistory"),
                   ),
-                
-              ),
+                ),
+              ],
             ),
           ),
         ]));
