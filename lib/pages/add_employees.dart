@@ -21,6 +21,8 @@ class _AddEmployeeState extends State<AddEmployee> {
 
   @override
   Widget build(BuildContext context) {
+     final screenWidth = MediaQuery.of(context).size.width;
+    final fieldWidth = widget.isWeb ? 400.0 : screenWidth * 0.8;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -38,73 +40,113 @@ class _AddEmployeeState extends State<AddEmployee> {
                   margin: const EdgeInsets.all(12),
                   child: Form(
                     key: _formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(
-                          height: 80,
-                        ),
-                         Text(
-                          'Add Employee',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.orangeAccent[700],
-                            fontSize: 40,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    child: Center(
+                      child: Container(
+                        width: fieldWidth,
+                        
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Expanded(
-                              child: TextFormField(
-                                style: const TextStyle(color: Colors.black),
-                                controller: _fnameController,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintText: 'First Name',
-                                  hintStyle:
-                                      const TextStyle(color: Colors.grey),
-                                  contentPadding: const EdgeInsets.only(
-                                      left: 14.0, bottom: 8.0, top: 8.0),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: Colors.white),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: Colors.white),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'First Name is required';
-                                  }
-                                  return null;
-                                },
-                                onSaved: (value) =>
-                                    _fnameController.text = value!,
+                            const SizedBox(
+                              height: 80,
+                            ),
+                             Text(
+                              'Add Employee',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.orangeAccent[700],
+                                fontSize: 40,
                               ),
                             ),
                             const SizedBox(
-                              width: 30,
+                              height: 20,
                             ),
-                            Expanded(
-                              child: TextFormField(
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Expanded(
+                                  child: TextFormField(
+                                    style: const TextStyle(color: Colors.black),
+                                    controller: _fnameController,
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintText: 'First Name',
+                                      hintStyle:
+                                          const TextStyle(color: Colors.grey),
+                                      contentPadding: const EdgeInsets.only(
+                                          left: 14.0, bottom: 8.0, top: 8.0),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide:
+                                            const BorderSide(color: Colors.white),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            const BorderSide(color: Colors.white),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'First Name is required';
+                                      }
+                                      return null;
+                                    },
+                                    onSaved: (value) =>
+                                        _fnameController.text = value!,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 30,
+                                ),
+                                Expanded(
+                                  child: TextFormField(
+                                    style: const TextStyle(color: Colors.black),
+                                    controller: _lnameController,
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintText: 'Last Name',
+                                      hintStyle:
+                                          const TextStyle(color: Colors.grey),
+                                      contentPadding: const EdgeInsets.only(
+                                          left: 14.0, bottom: 8.0, top: 8.0),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide:
+                                            const BorderSide(color: Colors.white),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            const BorderSide(color: Colors.white),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Last Name is required';
+                                      }
+                                      return null;
+                                    },
+                                    onSaved: (value) =>
+                                        _lnameController.text = value!,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                             TextFormField(
                                 style: const TextStyle(color: Colors.black),
-                                controller: _lnameController,
+                                controller: _emailController,
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white,
-                                  hintText: 'Last Name',
-                                  hintStyle:
-                                      const TextStyle(color: Colors.grey),
+                                  hintText: 'Email',
+                                  hintStyle: const TextStyle(color: Colors.grey),
                                   contentPadding: const EdgeInsets.only(
                                       left: 14.0, bottom: 8.0, top: 8.0),
                                   focusedBorder: OutlineInputBorder(
@@ -120,121 +162,87 @@ class _AddEmployeeState extends State<AddEmployee> {
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Last Name is required';
+                                    return 'Email is required';
                                   }
                                   return null;
                                 },
-                                onSaved: (value) =>
-                                    _lnameController.text = value!,
+                                onSaved: (value) => _emailController.text = value!,
+                                keyboardType: TextInputType.emailAddress,
                               ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                             TextFormField(
+                                style: const TextStyle(color: Colors.black),
+                                controller: _phoneController,
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintText: 'Phone',
+                                  hintStyle: const TextStyle(color: Colors.grey),
+                                  contentPadding: const EdgeInsets.only(
+                                      left: 14.0, bottom: 8.0, top: 8.0),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        const BorderSide(color: Colors.white),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        const BorderSide(color: Colors.white),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Phonenumber is required';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) => _phoneController.text = value!,
+                                keyboardType: TextInputType.phone,
+                              ),
+                          
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                MaterialButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  color: Colors.orangeAccent[700],
+                                  minWidth: 150,
+                                  height: 50,
+                                  onPressed: () {
+                                    setState(() {
+                                      _isAdmin = !_isAdmin;
+                                    });
+                                  },
+                                  child: _isAdmin
+                                      ? const Text('Admin')
+                                      : const Text('Employee'),
+                                ),
+                                MaterialButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  color: Colors.orangeAccent[700],
+                                  minWidth: 150,
+                                  height: 50,
+                                  onPressed: () {
+                                    addEmployee();
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text('Add Employee'),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                         TextFormField(
-                            style: const TextStyle(color: Colors.black),
-                            controller: _emailController,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              hintText: 'Email',
-                              hintStyle: const TextStyle(color: Colors.grey),
-                              contentPadding: const EdgeInsets.only(
-                                  left: 14.0, bottom: 8.0, top: 8.0),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Colors.white),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Colors.white),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Email is required';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) => _emailController.text = value!,
-                            keyboardType: TextInputType.emailAddress,
-                          ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                         TextFormField(
-                            style: const TextStyle(color: Colors.black),
-                            controller: _phoneController,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              hintText: 'Phone',
-                              hintStyle: const TextStyle(color: Colors.grey),
-                              contentPadding: const EdgeInsets.only(
-                                  left: 14.0, bottom: 8.0, top: 8.0),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Colors.white),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Colors.white),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Phonenumber is required';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) => _phoneController.text = value!,
-                            keyboardType: TextInputType.phone,
-                          ),
-                      
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            MaterialButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              color: Colors.orangeAccent[700],
-                              minWidth: 150,
-                              height: 50,
-                              onPressed: () {
-                                setState(() {
-                                  _isAdmin = !_isAdmin;
-                                });
-                              },
-                              child: _isAdmin
-                                  ? const Text('Admin')
-                                  : const Text('Employee'),
-                            ),
-                            MaterialButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              color: Colors.orangeAccent[700],
-                              minWidth: 150,
-                              height: 50,
-                              onPressed: () {
-                                addEmployee();
-                                Navigator.pop(context);
-                              },
-                              child: const Text('Add Employee'),
-                            ),
-                          ],
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

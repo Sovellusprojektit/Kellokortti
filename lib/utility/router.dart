@@ -13,6 +13,7 @@ import '../pages/add_events_page.dart';
 import '../pages/calendar_page.dart';
 import '../pages/salaryinfo.dart';
 import '../pages/workHistory.dart';
+import '../pages/guide.dart';
 
 const String homePage = '/';
 const String loginPage = '/login';
@@ -28,6 +29,7 @@ const String addEvent = '/addEvent';
 const String calendarPage = '/calendarPage';
 const String salaryInfo = '/salaryInfo';
 const String workHistory = '/workHistory';
+const String guide = '/guide';
 
 Route<dynamic> controller(RouteSettings destination, {required bool isWeb}) {
   switch (destination.name) {
@@ -70,6 +72,8 @@ Route<dynamic> controller(RouteSettings destination, {required bool isWeb}) {
       return MaterialPageRoute(builder: (context) => SalaryInfo(isWeb: isWeb));
     case workHistory:
       return MaterialPageRoute(builder: (context) => Workhistory(isWeb: isWeb));
+    case guide:
+      return MaterialPageRoute(builder: (context) => Guide(isWeb: isWeb));
 
     default:
       throw ('This route does not exist');

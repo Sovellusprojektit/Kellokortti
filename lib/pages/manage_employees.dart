@@ -21,6 +21,8 @@ class _EmployeeManagerState extends State<EmployeeManager> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final fieldWidth = widget.isWeb ? 400.0 : screenWidth * 0.8;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Employee Manager'),
@@ -58,129 +60,135 @@ class _EmployeeManagerState extends State<EmployeeManager> {
                 Map<String, dynamic> data =
                     document.data()! as Map<String, dynamic>;
 
-                return ListTile(
-                  title: Text(data['fname'],
-                      style: Theme.of(context).textTheme.displayLarge),
-                  subtitle: Text(data['email'],
-                      style: const TextStyle(color: Colors.white)),
-                  trailing: data['isWorking']
-                      ? const Icon(Icons.check_circle, color: Colors.green)
-                      : const Icon(Icons.cancel, color: Colors.red),
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        icon: const Icon(Icons.person),
-                        title: Text(data['fname'] + ' ' + data['lname'],
-                            style: Theme.of(context).textTheme.displayLarge),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            data['isAdmin']
-                                ? Text('Admin',
+                return Center(
+                  child: Container(
+                    width: fieldWidth,
+                    color: Theme.of(context).primaryColor,
+                    child: ListTile(
+                      title: Text(data['fname'],
+                          style: Theme.of(context).textTheme.displayLarge),
+                      subtitle: Text(data['email'],
+                          style: const TextStyle(color: Colors.white)),
+                      trailing: data['isWorking']
+                          ? const Icon(Icons.check_circle, color: Colors.green)
+                          : const Icon(Icons.cancel, color: Colors.red),
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            backgroundColor: Theme.of(context).primaryColor,
+                            icon: const Icon(Icons.person),
+                            title: Text(data['fname'] + ' ' + data['lname'],
+                                style: Theme.of(context).textTheme.displayLarge),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                data['isAdmin']
+                                    ? Text('Admin',
+                                        style:
+                                            Theme.of(context).textTheme.bodyLarge)
+                                    : Text('Employee',
+                                        style:
+                                            Theme.of(context).textTheme.bodyLarge),
+                                const SizedBox(height: 10),
+                                data['isWorking']
+                                    ? Text('Currently at work',
+                                        style:
+                                            Theme.of(context).textTheme.bodyLarge)
+                                    : Text('Not Working right now',
+                                        style:
+                                            Theme.of(context).textTheme.bodyLarge),
+                                const SizedBox(height: 20),
+                                Text("Email: " + data['email'],
                                     style:
-                                        Theme.of(context).textTheme.bodyLarge)
-                                : Text('Employee',
+                                        Theme.of(context).textTheme.displayMedium),
+                                Text("Phonenumber: " + data['phone'],
                                     style:
-                                        Theme.of(context).textTheme.bodyLarge),
-                            const SizedBox(height: 10),
-                            data['isWorking']
-                                ? Text('Currently at work',
-                                    style:
-                                        Theme.of(context).textTheme.bodyLarge)
-                                : Text('Not Working right now',
-                                    style:
-                                        Theme.of(context).textTheme.bodyLarge),
-                            const SizedBox(height: 20),
-                            Text("Email: " + data['email'],
-                                style:
-                                    Theme.of(context).textTheme.displayMedium),
-                            Text("Phonenumber: " + data['phone'],
-                                style:
-                                    Theme.of(context).textTheme.displayMedium),
-                          ],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: const Text('History'),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AdminHistory(
-                                    uID: document.id,
-                                  ),
-                                ),
-                              );
-                            },
+                                        Theme.of(context).textTheme.displayMedium),
+                              ],
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text('History'),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => AdminHistory(
+                                        uID: document.id,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                              TextButton(
+                                child: const Text('Close'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
                           ),
-                          TextButton(
-                            child: const Text('Close'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
+                        );
+                      },
+                      onLongPress: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            backgroundColor: Theme.of(context).primaryColor,
+                            icon: const Icon(Icons.person),
+                            title: Text(data['fname'] + ' ' + data['lname'],
+                                style: Theme.of(context).textTheme.displayLarge),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                data['isAdmin']
+                                    ? Text('Admin',
+                                        style:
+                                            Theme.of(context).textTheme.bodyLarge)
+                                    : Text('Employee',
+                                        style:
+                                            Theme.of(context).textTheme.bodyLarge),
+                                const SizedBox(height: 10),
+                                data['isWorking']
+                                    ? Text('Currently at work',
+                                        style:
+                                            Theme.of(context).textTheme.bodyLarge)
+                                    : Text('Not Working right now',
+                                        style:
+                                            Theme.of(context).textTheme.bodyLarge),
+                                const SizedBox(height: 20),
+                                Text("Email: " + data['email'],
+                                    style:
+                                        Theme.of(context).textTheme.displayMedium),
+                                Text("Phonenumber: " + data['phone'],
+                                    style:
+                                        Theme.of(context).textTheme.displayMedium),
+                              ],
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text('Cancel'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              TextButton(
+                                child: const Text('Delete'),
+                                onPressed: () {
+                                  FirebaseFirestore.instance
+                                      .collection('Users')
+                                      .doc(document.id)
+                                      .delete();
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    );
-                  },
-                  onLongPress: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        icon: const Icon(Icons.person),
-                        title: Text(data['fname'] + ' ' + data['lname'],
-                            style: Theme.of(context).textTheme.displayLarge),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            data['isAdmin']
-                                ? Text('Admin',
-                                    style:
-                                        Theme.of(context).textTheme.bodyLarge)
-                                : Text('Employee',
-                                    style:
-                                        Theme.of(context).textTheme.bodyLarge),
-                            const SizedBox(height: 10),
-                            data['isWorking']
-                                ? Text('Currently at work',
-                                    style:
-                                        Theme.of(context).textTheme.bodyLarge)
-                                : Text('Not Working right now',
-                                    style:
-                                        Theme.of(context).textTheme.bodyLarge),
-                            const SizedBox(height: 20),
-                            Text("Email: " + data['email'],
-                                style:
-                                    Theme.of(context).textTheme.displayMedium),
-                            Text("Phonenumber: " + data['phone'],
-                                style:
-                                    Theme.of(context).textTheme.displayMedium),
-                          ],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: const Text('Cancel'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          TextButton(
-                            child: const Text('Delete'),
-                            onPressed: () {
-                              FirebaseFirestore.instance
-                                  .collection('Users')
-                                  .doc(document.id)
-                                  .delete();
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
-                      ),
-                    );
-                  },
+                        );
+                      },
+                    ),
+                  ),
                 );
               }).toList(),
             );
