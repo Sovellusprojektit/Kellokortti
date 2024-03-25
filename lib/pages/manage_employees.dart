@@ -22,7 +22,7 @@ class _EmployeeManagerState extends State<EmployeeManager> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final fieldWidth = widget.isWeb ? 400.0 : screenWidth * 0.8;
+    final fieldWidth = widget.isWeb ? 400.0 : screenWidth;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Employee Manager'),
@@ -59,11 +59,9 @@ class _EmployeeManagerState extends State<EmployeeManager> {
               children: snapshot.data!.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
                     document.data()! as Map<String, dynamic>;
-
                 return Center(
                   child: Container(
                     width: fieldWidth,
-                    color: Theme.of(context).primaryColor,
                     child: ListTile(
                       title: Text(data['fname'],
                           style: Theme.of(context).textTheme.displayLarge),

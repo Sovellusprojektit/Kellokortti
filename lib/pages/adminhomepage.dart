@@ -50,10 +50,14 @@ class AdminHomePage extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              const SizedBox(
-                height: 70,
+              
+              Center(
+                child: ElevatedButton(
+                  onPressed: () =>
+                    Navigator.pushNamed(context, route.addClients),
+                  child: const Text("Add clients"),
+                ),
               ),
-
               // Voi kopioida takaisin napin ja asettaa haluaman navigoinnin.
               /*Center(
                 child: ElevatedButton(
