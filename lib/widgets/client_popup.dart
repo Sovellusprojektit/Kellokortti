@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ClientPopup extends StatefulWidget {
   final List<String> clientNames;
   final Function(String) onValueChange;
-  final Function(String, String) onOkPress;
+  final Function(String) onOkPress;
 
   ClientPopup({
     required this.clientNames,
@@ -17,11 +17,11 @@ class ClientPopup extends StatefulWidget {
 
 class _ClientPopupState extends State<ClientPopup> {
   String dropdownValue = '';
-  final clientIdController = TextEditingController();
+  final invoiceIdController = TextEditingController();
 
   @override
   void dispose() {
-    clientIdController.dispose();
+    invoiceIdController.dispose();
     super.dispose();
   }
 
@@ -69,7 +69,7 @@ class _ClientPopupState extends State<ClientPopup> {
             }).toList(),
           ),
           TextField(
-            controller: clientIdController,
+            controller: invoiceIdController,
             decoration: const InputDecoration(
               hintText: 'Invoice ID',
             ),
@@ -86,7 +86,7 @@ class _ClientPopupState extends State<ClientPopup> {
         TextButton(
           child: const Text('OK'),
           onPressed: () {
-            widget.onOkPress(clientIdController.text, '');
+            widget.onOkPress(invoiceIdController.text);
             Navigator.of(context).pop();
           },
         ),
