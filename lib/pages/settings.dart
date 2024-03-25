@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mobprojekti/utility/local_auth_service.dart';
 import 'package:mobprojekti/utility/theme_provider.dart';
 import 'package:mobprojekti/widgets/themed_switch.dart';
+
 import '../utility/router.dart' as route;
 
 class SettingsPage extends StatefulWidget {
@@ -17,7 +19,6 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   bool _light = true;
   bool _biometrics = false;
-
   final _switchPosition = Hive.box('userData');
 
   @override
@@ -31,7 +32,8 @@ class _SettingsPageState extends State<SettingsPage> {
       }
 
       if (_switchPosition.containsKey('biometricsPosition')) {
-        _biometrics = _switchPosition.get('biometricsPosition');
+        _biometrics =
+            _switchPosition.get('biometricsPosition', defaultValue: false);
       } else {
         _switchPosition.put('biometricsPosition', _biometrics);
       }
@@ -122,20 +124,29 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       Row(
         children: [
-          const Icon(
-            Icons.fingerprint_rounded,
-          ),
+          const Icon(Icons.fingerprint_rounded),
           const SizedBox(width: 10),
           Text(
             _biometrics ? "Disable biometric login" : "Enable biometric login",
             style: TextStyle(
-                color: Theme.of(context).textTheme.bodyLarge?.color,
-                fontSize: 22,
-                fontWeight: FontWeight.bold),
+              color: Theme.of(context).textTheme.bodyLarge?.color,
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           ThemedSwitch(
             value: _biometrics,
-            onChanged: (bool value) {
+            onChanged: (bool value) async {
+              if (value) {
+                final success = await LocalAuth.authenticate();
+                if (!success) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Biometric authentication failed'),
+                    backgroundColor: Colors.red,
+                  ));
+                  return;
+                }
+              }
               _switchPosition.put('biometricsPosition', value);
               setState(() {
                 _biometrics = value;

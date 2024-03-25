@@ -153,12 +153,9 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 height: MediaQuery.of(context).size.height,
                 child: ListView(
                   children: [
-                    const SizedBox(
-                      height: 80,
-                    ),
                     Row(
                       children: [
-                        Icon(Icons.account_circle_rounded),
+                        const Icon(Icons.account_circle_rounded),
                         Text(
                           'Name:',
                           style: TextStyle(

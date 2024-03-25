@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../utility/router.dart' as route;
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mobprojekti/utility/local_auth_service.dart';
+
+import '../utility/router.dart' as route;
 
 class LoginPage extends StatefulWidget {
   final bool isWeb;
@@ -200,14 +202,25 @@ class LoginPageState extends State<LoginPage> {
           email: email,
           password: password,
         );
+
+        final biometricsEnabled =
+            _userInfo.get('biometricsPosition', defaultValue: false);
+        if (biometricsEnabled && !await LocalAuth.authenticate()) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content:
+                Text('Biometric authentication failed/Device not supported'),
+            backgroundColor: Colors.red,
+          ));
+          return;
+        }
+
         _userInfo.put('uid', userCredential.user!.uid);
         navigateToHomePage();
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found') {
-          print('No user found for that email.');
-        } else if (e.code == 'wrong-password') {
-          print('Wrong password provided for that user.');
-        }
+      } on FirebaseAuthException {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Firebase authentication failed'),
+          backgroundColor: Colors.red,
+        ));
       }
     }
   }
