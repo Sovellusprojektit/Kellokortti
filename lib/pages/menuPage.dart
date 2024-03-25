@@ -1,11 +1,8 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../widgets/client_popup.dart';
-import '../utility/router.dart' as route;
+import 'package:intl/intl.dart';
 
 class MenuPage extends StatefulWidget {
   final bool isWeb;
@@ -107,6 +104,10 @@ class _MenuPageState extends State<MenuPage> {
     });
   }
 
+  String getFormattedTime(DateTime time) {
+    return DateFormat('dd-MM hh:mm').format(time);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,8 +131,17 @@ class _MenuPageState extends State<MenuPage> {
             child: _atWork
                 ? Column(
                     children: [
-                      const Center(child: Text('You are at work')),
-                      FloatingActionButton(
+                      const SizedBox(height: 50.0),
+                      Text('Active client: ${_timeStampInfo.get('clientName')}',
+                          style: Theme.of(context).textTheme.displayLarge),
+                      Text(
+                          'Start time: ${getFormattedTime(_timeStampInfo.get("startWork"))}',
+                          style: Theme.of(context).textTheme.bodyLarge),
+                      widget.isWeb
+                          ? const SizedBox(height: 200.0)
+                          : const Spacer(),
+                      const Spacer(),
+                      ElevatedButton(
                           onPressed: () {
                             getTimeStamp();
                             endWork();
@@ -173,8 +183,7 @@ class _MenuPageState extends State<MenuPage> {
                                   dropdownValue = newValue;
                                 });
                               },
-
-                              onOkPress: (clientId, invoiceId) async {
+                              onOkPress: (invoiceId) async {
                                 if (dropdownValue.isNotEmpty) {
                                   _timeStampInfo.put(
                                       'clientName', dropdownValue);
@@ -189,20 +198,8 @@ class _MenuPageState extends State<MenuPage> {
                                           .doc(doc.id);
                                       _timeStampInfo.put('clientRoot', doc.id);
 
-                                      if (invoiceId != null &&
-                                          invoiceId.isNotEmpty) {
-                                        clientDoc
-                                            .collection('invoices')
-                                            .doc(invoiceId)
-                                            .set({
-                                          'clientName': dropdownValue,
-                                          'clientId': clientId,
-                                        }).then((value) {
-                                          print("Invoice Added");
-                                        }).catchError((error) {
-                                          print(
-                                              "Failed to add invoice: $error");
-                                        });
+                                      if (invoiceId.isEmpty) {
+                                        invoiceId = "Invoice ID not provided";
                                       }
 
                                       await clientDoc
@@ -211,6 +208,7 @@ class _MenuPageState extends State<MenuPage> {
                                         'startWork': time,
                                         'invoiceId': invoiceId,
                                         'name': '$fname $lname',
+                                        'clientName': dropdownValue,
                                       }).then((docRef) {
                                         _timeStampInfo.put(
                                             'clientDocId', docRef.id);
@@ -259,20 +257,6 @@ class _MenuPageState extends State<MenuPage> {
         .doc(_timeStampInfo.get('docId'))
         .set({
       'startWork': time,
-    });
-
-    String? clientDocId = _timeStampInfo.get('clientDocId');
-    String? clientRoot = _timeStampInfo.get('clientRoot');
-    print("Toinen $clientRoot ja $clientDocId");
-    clientWorkDocumentRef = FirebaseFirestore.instance
-        .collection('Clients')
-        .doc(clientRoot)
-        .collection('general')
-        .doc(clientDocId);
-
-    await clientWorkDocumentRef!.set({
-      'startWork': time,
-      'name': '$fname $lname',
     });
   }
 
@@ -326,6 +310,17 @@ class _MenuPageState extends State<MenuPage> {
       'workDurationAfterBreaks': workDurationString,
       'overHours': minute
     }, SetOptions(merge: true));
+
+    //This is to retrieve the same original CLIENT document that was created when starting work
+    String? clientDocId = _timeStampInfo.get('clientDocId');
+    String? clientRoot = _timeStampInfo.get('clientRoot');
+    print("ClientRoot: $clientRoot ja clientDocId: $clientDocId");
+    clientWorkDocumentRef = FirebaseFirestore.instance
+        .collection('Clients')
+        .doc(clientRoot)
+        .collection('general')
+        .doc(clientDocId);
+
     FirebaseFirestore.instance
         .collection('Users')
         .doc(uId)

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../utility/router.dart' as route;
-import 'package:hive_flutter/hive_flutter.dart';
 import '../widgets/drawer_tile.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,10 +14,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-   String? user = FirebaseAuth.instance.currentUser?.uid;
-  String? firstName;
+  String? uid = FirebaseAuth.instance.currentUser?.uid;
+  String? _firstName;
   String? email;
-  final _userInfo = Hive.box('userData');
   bool? _isAdmin;
 
   @override
@@ -26,7 +24,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     email = FirebaseAuth.instance.currentUser?.email;
     isAdmin();
-    getFname();
     print(FirebaseAuth.instance.currentUser?.email);
   }
 
@@ -34,12 +31,13 @@ class _HomePageState extends State<HomePage> {
     if (FirebaseAuth.instance.currentUser != null) {
       FirebaseFirestore.instance
           .collection('Users')
-          .doc(_userInfo.get('uid'))
+          .doc(uid)
           .get()
           .then((DocumentSnapshot documentSnapshot) {
         if (documentSnapshot.exists) {
           setState(() {
             _isAdmin = documentSnapshot.get('isAdmin');
+            _firstName = documentSnapshot.get('fname');
           });
         }
       });
@@ -49,23 +47,7 @@ class _HomePageState extends State<HomePage> {
       });
     }
   }
-  void getFname() async {
-    FirebaseFirestore.instance
-        .collection('Users')
-        .doc(user)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        setState(() {
-          firstName = documentSnapshot['fname'] as String?;
-        });
-      } else {
-        print('Käyttäjää ei löydy');
-      }
-    }).catchError((error) {
-      print('Virhe: $error');
-    });
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +129,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Center(
             child: Text(
-              'Welcome back, $firstName!',
+              'Welcome back, $_firstName!',
               style: Theme.of(context).textTheme.displayLarge,
               textAlign: TextAlign.center,
             ),
